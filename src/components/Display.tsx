@@ -1,9 +1,9 @@
 import * as React from 'react';
-import styled from 'styled-components/native';
+import styled from '../../types/styled-components';
 
-type DisplayProps = {
+interface IDisplayProps {
   num: number;
-};
+}
 
 const DisplayResultContainer = styled.View`
   padding-right: 10;
@@ -19,7 +19,7 @@ const DisplayResult = styled.Text`
   font-weight: bold;
 `;
 
-const Display: React.SFC<DisplayProps> = ({ num }) => (
+const Display: React.SFC<IDisplayProps> = ({ num }) => (
   <DisplayResultContainer>
     <DisplayResult>{num}</DisplayResult>
   </DisplayResultContainer>

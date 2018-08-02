@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import DisplayScreens from './DisplayScreens';
 import Buttons from './Buttons';
+import DisplayScreens from './DisplayScreens';
 
 const App = () => (
   <React.Fragment>

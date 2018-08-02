@@ -1,10 +1,10 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components/native';
+import styled, { css } from '../../types/styled-components';
 
-type ButtonProps = {
+interface IButtonProps {
   text: string;
   special?: boolean;
-};
+}
 
 const ButtonWrapper = styled.View`
   align-items: center;
@@ -33,7 +33,7 @@ const ButtonText = styled.Text`
     `};
 `;
 
-const Button: React.SFC<ButtonProps> = ({ text, special }) => (
+const Button: React.SFC<IButtonProps> = ({ text, special }) => (
   <ButtonWrapper special={special}>
     <ButtonText special={special}>{text}</ButtonText>
   </ButtonWrapper>

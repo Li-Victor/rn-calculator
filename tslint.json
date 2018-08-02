@@ -1,4 +1,9 @@
 {
-  "extends": ["tslint: latest", "tslint-react"],
-  "rulesDirectory": "node_modules/tslint-react"
+  "extends": ["tslint:latest", "tslint-config-airbnb", "tslint-config-prettier"],
+  "rulesDirectory": ["node_modules/tslint-config-airbnb"],
+  "rules": {
+    "variable-name": [true, "allow-pascal-case"],
+    "no-submodule-imports": false,
+    "import-name": false
+  }
 }
