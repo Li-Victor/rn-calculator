@@ -1,0 +1,4 @@
+{
+  "extends": ["tslint: latest", "tslint-react"],
+  "rulesDirectory": "node_modules/tslint-react"
+}
