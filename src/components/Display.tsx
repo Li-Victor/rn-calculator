@@ -1,6 +1,10 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 
+type DisplayProps = {
+  num: number;
+};
+
 const DisplayResultContainer = styled.View`
   padding-right: 10;
   background-color: #424242;
@@ -15,7 +19,7 @@ const DisplayResult = styled.Text`
   font-weight: bold;
 `;
 
-const Display: React.SFC<{ num: number }> = ({ num }) => (
+const Display: React.SFC<DisplayProps> = ({ num }) => (
   <DisplayResultContainer>
     <DisplayResult>{num}</DisplayResult>
   </DisplayResultContainer>

@@ -1,16 +1,13 @@
 import * as React from 'react';
-import styled from 'styled-components/native';
 
 import DisplayScreens from './DisplayScreens';
-
-const AppWrapper = styled.View`
-  flex: 1;
-`;
+import Buttons from './Buttons';
 
 const App = () => (
-  <AppWrapper>
+  <React.Fragment>
     <DisplayScreens />
-  </AppWrapper>
+    <Buttons />
+  </React.Fragment>
 );
 
 export default App;
