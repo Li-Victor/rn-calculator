@@ -4,6 +4,8 @@
   "rules": {
     "variable-name": [true, "allow-pascal-case"],
     "no-submodule-imports": false,
-    "import-name": false
+    "import-name": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false
   }
 }

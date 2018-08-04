@@ -9,11 +9,14 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "@types/react": "^16.4.7",
     "@types/react-native": "^0.56.4",
+    "@types/react-redux": "^6.0.6",
     "babel-preset-react-native": "^5",
     "react-native-typescript-transformer": "^1.2.10",
     "tslint": "^5.11.0",

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from '../../types/styled-components';
 
 interface IDisplayProps {
-  num: number;
+  num: string;
 }
 
 const DisplayResultContainer = styled.View`

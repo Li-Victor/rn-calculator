@@ -4,9 +4,10 @@ import styled, { css } from '../../types/styled-components';
 interface IButtonProps {
   text: string;
   special?: boolean;
+  onPress: (n: string) => void;
 }
 
-const ButtonWrapper = styled.View`
+const ButtonWrapper = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-right-width: 1;
@@ -20,7 +21,7 @@ const ButtonWrapper = styled.View`
         `
       : css`
           flex: 1;
-          background-color: #fafafa;
+          background-color: #f2f2f2;
         `};
 `;
 
@@ -33,8 +34,13 @@ const ButtonText = styled.Text`
     `};
 `;
 
-const Button: React.SFC<IButtonProps> = ({ text, special }) => (
-  <ButtonWrapper special={special}>
+const Button: React.SFC<IButtonProps> = ({ text, special, onPress }) => (
+  <ButtonWrapper
+    onPress={() => {
+      onPress(text);
+    }}
+    special={special}
+  >
     <ButtonText special={special}>{text}</ButtonText>
   </ButtonWrapper>
 );
