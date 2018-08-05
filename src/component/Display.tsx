@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { TouchableOpacity } from 'react-native';
+
 import styled from '../../types/styled-components';
 import { InputState } from '../redux/reducer/CalculatorReducer';
 
 interface IDisplayProps {
   num: string;
   inputState: InputState;
+  toggle: () => void;
 }
 
 const DisplayResultContainer = styled.View`
@@ -25,9 +28,11 @@ const DisplayResult = styled.Text`
   font-weight: bold;
 `;
 
-const Display: React.SFC<IDisplayProps> = ({ num, inputState }) => (
+const Display: React.SFC<IDisplayProps> = ({ num, inputState, toggle }) => (
   <DisplayResultContainer>
-    <DisplayResult inputState={inputState}>{num}</DisplayResult>
+    <TouchableOpacity onPress={toggle}>
+      <DisplayResult inputState={inputState}>{num}</DisplayResult>
+    </TouchableOpacity>
   </DisplayResultContainer>
 );
 

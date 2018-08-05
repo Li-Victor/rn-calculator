@@ -1,7 +1,10 @@
 enum Constants {
   PRESS_NUM,
   ENTER,
-  OPERATION
+  OPERATION,
+  CLEAR,
+  SWAP,
+  TOGGLE_SIGN
 }
 
 export enum Operations {
@@ -49,7 +52,20 @@ interface IOperation {
   payload: Operations;
 }
 
-type Actions = IPressNum | IEnter | IOperation;
+interface IClear {
+  type: Constants.CLEAR;
+}
+
+interface ISwap {
+  type: Constants.SWAP;
+}
+
+interface IToggleSign {
+  type: Constants.TOGGLE_SIGN;
+  payload: number;
+}
+
+type Actions = IPressNum | IEnter | IOperation | IClear | ISwap | IToggleSign;
 
 export const pressNum = (n: Numbers): IPressNum => ({
   type: Constants.PRESS_NUM,
@@ -65,7 +81,20 @@ export const operation = (op: Operations): IOperation => ({
   payload: op
 });
 
-function doOperation(x: string, y: string, op: Operations) {
+export const clear = (): IClear => ({
+  type: Constants.CLEAR
+});
+
+export const swap = (): ISwap => ({
+  type: Constants.SWAP
+});
+
+export const toggleSign = (idx: number): IToggleSign => ({
+  type: Constants.TOGGLE_SIGN,
+  payload: idx
+});
+
+function doOperation(x: string, y: string, op: Operations): number {
   const a = parseFloat(x);
   const b = parseFloat(y);
 
@@ -84,8 +113,15 @@ function doOperation(x: string, y: string, op: Operations) {
   return 0;
 }
 
+function toggle(x: string): string {
+  if (x.startsWith('-')) {
+    return x.slice(1);
+  }
+  return `-${x}`;
+}
+
 const initialState = {
-  stack: [],
+  stack: ['0', '0', '0'],
   inputState: InputState.replace
 };
 
@@ -99,6 +135,23 @@ const reducer = (
   action: Actions
 ): ICalculatorState => {
   switch (action.type) {
+    case Constants.TOGGLE_SIGN:
+      return {
+        stack: state.stack.map(
+          (x, i) => (action.payload === i ? toggle(x) : x)
+        ),
+        inputState: state.inputState
+      };
+
+    case Constants.SWAP:
+      return {
+        stack: [state.stack[1], state.stack[0], ...state.stack.slice(2)],
+        inputState: InputState.push
+      };
+
+    case Constants.CLEAR:
+      return initialState;
+
     case Constants.OPERATION:
       return {
         stack: [
@@ -107,6 +160,7 @@ const reducer = (
         ],
         inputState: InputState.push
       };
+
     case Constants.ENTER:
       return {
         stack: [state.stack[0] || '0', ...state.stack],

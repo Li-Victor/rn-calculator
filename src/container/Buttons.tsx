@@ -5,11 +5,13 @@ import { bindActionCreators, Dispatch } from 'redux';
 import styled from '../../types/styled-components';
 import { NumberButton, OperationButton } from '../component/Button';
 import {
-  pressNum,
-  enter,
   Operations,
   Numbers,
-  operation
+  pressNum,
+  enter,
+  operation,
+  clear,
+  swap
 } from '../redux/reducer/CalculatorReducer';
 
 const ButtonsWrapper = styled.View`
@@ -27,18 +29,22 @@ interface IButtonsProps {
   enterAction: () => void;
   pressNumAction: (n: Numbers) => void;
   operationAction: (op: Operations) => void;
+  clearAction: () => void;
+  swapAction: () => void;
 }
 
 const Buttons: React.SFC<IButtonsProps> = ({
   pressNumAction,
   enterAction,
-  operationAction
+  operationAction,
+  clearAction,
+  swapAction
 }) => (
   <ButtonsWrapper>
     <ButtonRow>
-      <OperationButton text={Operations.CLEAR} />
+      <OperationButton text={Operations.CLEAR} onPress={clearAction} />
       <OperationButton text={Operations.POW} onPress={operationAction} />
-      <OperationButton text={Operations.SWAP} />
+      <OperationButton text={Operations.SWAP} onPress={swapAction} />
       <OperationButton text={Operations.DIVIDE} onPress={operationAction} />
     </ButtonRow>
     <ButtonRow>
@@ -76,7 +82,9 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     {
       pressNumAction: pressNum,
       enterAction: enter,
-      operationAction: operation
+      operationAction: operation,
+      clearAction: clear,
+      swapAction: swap
     },
     dispatch
   );
