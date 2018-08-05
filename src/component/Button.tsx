@@ -1,6 +1,7 @@
 import * as React from 'react';
-import styled, { css } from '../../types/styled-components';
+import * as Animatable from 'react-native-animatable';
 
+import styled, { css } from '../../types/styled-components';
 import { Numbers, Operations } from '../redux/reducer/CalculatorReducer';
 
 interface INumberButtonProps {
@@ -42,32 +43,52 @@ const ButtonText = styled.Text`
     `};
 `;
 
-export const NumberButton: React.SFC<INumberButtonProps> = ({
-  text,
-  special,
-  onPress
-}) => (
-  <ButtonWrapper
-    onPress={() => {
-      onPress(text);
-    }}
-    special={special}
-  >
-    <ButtonText special={special}>{text}</ButtonText>
-  </ButtonWrapper>
-);
+const AnimatedButtonText = Animatable.createAnimatableComponent(ButtonText);
 
-export const OperationButton: React.SFC<IOperationButtonProps> = ({
-  text,
-  special,
-  onPress
-}) => (
-  <ButtonWrapper
-    onPress={() => {
-      onPress(text);
-    }}
-    special={special}
-  >
-    <ButtonText special={special}>{text}</ButtonText>
-  </ButtonWrapper>
-);
+export class NumberButton extends React.Component<INumberButtonProps> {
+  constructor(props) {
+    super(props);
+    this.text = React.createRef();
+  }
+
+  render() {
+    const { text, special, onPress } = this.props;
+    return (
+      <ButtonWrapper
+        onPress={() => {
+          this.text.current.rubberBand(400);
+          onPress(text);
+        }}
+        special={special}
+      >
+        <AnimatedButtonText special={special} ref={this.text}>
+          {text}
+        </AnimatedButtonText>
+      </ButtonWrapper>
+    );
+  }
+}
+
+export class OperationButton extends React.Component<IOperationButtonProps> {
+  constructor(props) {
+    super(props);
+    this.text = React.createRef();
+  }
+
+  render() {
+    const { text, special, onPress } = this.props;
+    return (
+      <ButtonWrapper
+        onPress={() => {
+          this.text.current.rubberBand(400);
+          onPress(text);
+        }}
+        special={special}
+      >
+        <AnimatedButtonText special={special} ref={this.text}>
+          {text}
+        </AnimatedButtonText>
+      </ButtonWrapper>
+    );
+  }
+}

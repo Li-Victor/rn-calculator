@@ -7,6 +7,7 @@
     "import-name": false,
     "ordered-imports": false,
     "object-literal-sort-keys": false,
-    "no-else-after-return": [true, "allow-else-if"]
+    "no-else-after-return": [true, "allow-else-if"],
+    "member-access": [true, "no-public"],
   }
 }
