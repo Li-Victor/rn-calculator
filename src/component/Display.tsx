@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
 
 import styled from '../../types/styled-components';
 import { InputState } from '../redux/reducer/CalculatorReducer';
@@ -10,7 +9,7 @@ interface IDisplayProps {
   toggle: () => void;
 }
 
-const DisplayResultContainer = styled.View`
+const DisplayResultContainer = styled.TouchableOpacity`
   padding-right: 10;
   background-color: #424242;
   border-bottom-width: 1;
@@ -29,10 +28,8 @@ const DisplayResult = styled.Text`
 `;
 
 const Display: React.SFC<IDisplayProps> = ({ num, inputState, toggle }) => (
-  <DisplayResultContainer>
-    <TouchableOpacity onPress={toggle}>
-      <DisplayResult inputState={inputState}>{num}</DisplayResult>
-    </TouchableOpacity>
+  <DisplayResultContainer onPress={toggle}>
+    <DisplayResult inputState={inputState}>{num}</DisplayResult>
   </DisplayResultContainer>
 );
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
+import { Platform } from 'react-native';
 
 import Display from '../component/Display';
 import { IStoreState } from '../redux/storeState';
@@ -9,17 +10,26 @@ import {
   InputState,
   toggleSign
 } from '../redux/reducer/CalculatorReducer';
+import styled, { css } from '../../types/styled-components';
 
 interface IDisplayScreens {
   calculatorState: ICalculatorState;
   toggleSignAction: (idx: number) => void;
 }
 
+const DisplayScreensView = styled.View`
+  ${() =>
+    Platform.OS === 'ios' &&
+    css`
+      padding-top: 32;
+    `};
+`;
+
 const DisplayScreens: React.SFC<IDisplayScreens> = ({
   calculatorState,
   toggleSignAction
 }) => (
-  <React.Fragment>
+  <DisplayScreensView>
     <Display
       inputState={InputState.append}
       num={calculatorState.stack[2] || '0'}
@@ -35,7 +45,7 @@ const DisplayScreens: React.SFC<IDisplayScreens> = ({
       num={calculatorState.stack[0] || '0'}
       toggle={() => toggleSignAction(0)}
     />
-  </React.Fragment>
+  </DisplayScreensView>
 );
 
 const mapStateToProps = (state: IStoreState) => {
