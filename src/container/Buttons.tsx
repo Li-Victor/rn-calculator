@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
 import styled from '../../types/styled-components';
-import Button from '../component/Button';
-import { pressNum, enter } from '../redux/reducer/CalculatorReducer';
+import { NumberButton, OperationButton } from '../component/Button';
+import {
+  pressNum,
+  enter,
+  Operations,
+  Numbers,
+  operation
+} from '../redux/reducer/CalculatorReducer';
 
 const ButtonsWrapper = styled.View`
   flex: 1;
@@ -18,40 +24,45 @@ const ButtonRow = styled.View`
 `;
 
 interface IButtonsProps {
-  onPress: (n: string) => void;
   enterAction: () => void;
+  pressNumAction: (n: Numbers) => void;
+  operationAction: (op: Operations) => void;
 }
 
-const Buttons: React.SFC<IButtonsProps> = ({ onPress, enterAction }) => (
+const Buttons: React.SFC<IButtonsProps> = ({
+  pressNumAction,
+  enterAction,
+  operationAction
+}) => (
   <ButtonsWrapper>
     <ButtonRow>
-      <Button text="clear" />
-      <Button text="pow" />
-      <Button text="swap" />
-      <Button text="/" />
+      <OperationButton text={Operations.CLEAR} />
+      <OperationButton text={Operations.POW} onPress={operationAction} />
+      <OperationButton text={Operations.SWAP} />
+      <OperationButton text={Operations.DIVIDE} onPress={operationAction} />
     </ButtonRow>
     <ButtonRow>
-      <Button text="9" onPress={onPress} />
-      <Button text="8" onPress={onPress} />
-      <Button text="7" onPress={onPress} />
-      <Button text="X" />
+      <NumberButton text={Numbers.NINE} onPress={pressNumAction} />
+      <NumberButton text={Numbers.EIGHT} onPress={pressNumAction} />
+      <NumberButton text={Numbers.SEVEN} onPress={pressNumAction} />
+      <OperationButton text={Operations.MULTIPLY} onPress={operationAction} />
     </ButtonRow>
     <ButtonRow>
-      <Button text="6" onPress={onPress} />
-      <Button text="5" onPress={onPress} />
-      <Button text="4" onPress={onPress} />
-      <Button text="-" />
+      <NumberButton text={Numbers.SIX} onPress={pressNumAction} />
+      <NumberButton text={Numbers.FIVE} onPress={pressNumAction} />
+      <NumberButton text={Numbers.FOUR} onPress={pressNumAction} />
+      <OperationButton text={Operations.SUBTRACT} onPress={operationAction} />
     </ButtonRow>
     <ButtonRow>
-      <Button text="3" onPress={onPress} />
-      <Button text="2" onPress={onPress} />
-      <Button text="1" onPress={onPress} />
-      <Button text="+" />
+      <NumberButton text={Numbers.THREE} onPress={pressNumAction} />
+      <NumberButton text={Numbers.TWO} onPress={pressNumAction} />
+      <NumberButton text={Numbers.ONE} onPress={pressNumAction} />
+      <OperationButton text={Operations.ADD} onPress={operationAction} />
     </ButtonRow>
     <ButtonRow>
-      <Button text="0" onPress={onPress} />
-      <Button text="." />
-      <Button text="enter" special onPress={enterAction} />
+      <NumberButton text={Numbers.ZERO} onPress={pressNumAction} />
+      <NumberButton text={Numbers.DECIMAL} onPress={pressNumAction} />
+      <OperationButton text={Operations.ENTER} special onPress={enterAction} />
     </ButtonRow>
   </ButtonsWrapper>
 );
@@ -63,8 +74,9 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators(
     {
-      onPress: pressNum,
-      enterAction: enter
+      pressNumAction: pressNum,
+      enterAction: enter,
+      operationAction: operation
     },
     dispatch
   );

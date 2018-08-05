@@ -1,8 +1,10 @@
 import * as React from 'react';
 import styled from '../../types/styled-components';
+import { InputState } from '../redux/reducer/CalculatorReducer';
 
 interface IDisplayProps {
   num: string;
+  inputState: InputState;
 }
 
 const DisplayResultContainer = styled.View`
@@ -13,15 +15,19 @@ const DisplayResultContainer = styled.View`
 `;
 
 const DisplayResult = styled.Text`
-  color: #fff;
+  color: ${props => {
+    if (props.inputState === InputState.append) return '#fff';
+    else if (props.inputState === InputState.push) return '#9bc23c';
+    else if (props.inputState === InputState.replace) return '#2E71E5';
+  }};
   text-align: right;
   font-size: 30;
   font-weight: bold;
 `;
 
-const Display: React.SFC<IDisplayProps> = ({ num }) => (
+const Display: React.SFC<IDisplayProps> = ({ num, inputState }) => (
   <DisplayResultContainer>
-    <DisplayResult>{num}</DisplayResult>
+    <DisplayResult inputState={inputState}>{num}</DisplayResult>
   </DisplayResultContainer>
 );
 

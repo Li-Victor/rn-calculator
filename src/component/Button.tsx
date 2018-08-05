@@ -1,10 +1,18 @@
 import * as React from 'react';
 import styled, { css } from '../../types/styled-components';
 
-interface IButtonProps {
-  text: string;
+import { Numbers, Operations } from '../redux/reducer/CalculatorReducer';
+
+interface INumberButtonProps {
+  text: Numbers;
   special?: boolean;
-  onPress: (n: string) => void;
+  onPress: (n: Numbers) => void;
+}
+
+interface IOperationButtonProps {
+  text: Operations;
+  special?: boolean;
+  onPress: (op: Operations) => void;
 }
 
 const ButtonWrapper = styled.TouchableOpacity`
@@ -34,7 +42,11 @@ const ButtonText = styled.Text`
     `};
 `;
 
-const Button: React.SFC<IButtonProps> = ({ text, special, onPress }) => (
+export const NumberButton: React.SFC<INumberButtonProps> = ({
+  text,
+  special,
+  onPress
+}) => (
   <ButtonWrapper
     onPress={() => {
       onPress(text);
@@ -45,4 +57,17 @@ const Button: React.SFC<IButtonProps> = ({ text, special, onPress }) => (
   </ButtonWrapper>
 );
 
-export default Button;
+export const OperationButton: React.SFC<IOperationButtonProps> = ({
+  text,
+  special,
+  onPress
+}) => (
+  <ButtonWrapper
+    onPress={() => {
+      onPress(text);
+    }}
+    special={special}
+  >
+    <ButtonText special={special}>{text}</ButtonText>
+  </ButtonWrapper>
+);

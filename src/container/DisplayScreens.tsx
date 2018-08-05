@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 
 import Display from '../component/Display';
 import { IStoreState } from '../redux/storeState';
-import { ICalculatorState } from '../redux/reducer/CalculatorReducer';
+import {
+  ICalculatorState,
+  InputState
+} from '../redux/reducer/CalculatorReducer';
 
 interface IDisplayScreens {
   calculatorState: ICalculatorState;
@@ -11,9 +14,18 @@ interface IDisplayScreens {
 
 const DisplayScreens: React.SFC<IDisplayScreens> = ({ calculatorState }) => (
   <React.Fragment>
-    <Display num={calculatorState.stack[2] || '0'} />
-    <Display num={calculatorState.stack[1] || '0'} />
-    <Display num={calculatorState.stack[0] || '0'} />
+    <Display
+      inputState={InputState.append}
+      num={calculatorState.stack[2] || '0'}
+    />
+    <Display
+      inputState={InputState.append}
+      num={calculatorState.stack[1] || '0'}
+    />
+    <Display
+      inputState={calculatorState.inputState}
+      num={calculatorState.stack[0] || '0'}
+    />
   </React.Fragment>
 );
 

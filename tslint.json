@@ -6,6 +6,7 @@
     "no-submodule-imports": false,
     "import-name": false,
     "ordered-imports": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "no-else-after-return": [true, "allow-else-if"]
   }
 }
